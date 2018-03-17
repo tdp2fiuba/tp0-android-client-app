@@ -1,8 +1,10 @@
-package com.ar.tdp2fiuba.tp0;
+package com.ar.tdp2fiuba.tp0.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.ar.tdp2fiuba.tp0.fragment.CitiesFragment;
+import com.ar.tdp2fiuba.tp0.R;
 import com.ar.tdp2fiuba.tp0.model.City;
 
 public class CitiesActivity extends AppCompatActivity implements CitiesFragment.OnCitiesFragmentTapListener {

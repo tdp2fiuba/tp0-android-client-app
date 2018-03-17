@@ -1,4 +1,4 @@
-package com.ar.tdp2fiuba.tp0;
+package com.ar.tdp2fiuba.tp0.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.ar.tdp2fiuba.tp0.R;
 
 public class WeatherActivity extends AppCompatActivity {
 

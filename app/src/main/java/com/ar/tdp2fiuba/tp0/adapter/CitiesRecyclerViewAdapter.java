@@ -1,4 +1,4 @@
-package com.ar.tdp2fiuba.tp0;
+package com.ar.tdp2fiuba.tp0.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,22 +6,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.ar.tdp2fiuba.tp0.R;
+import com.ar.tdp2fiuba.tp0.fragment.CitiesFragment;
 import com.ar.tdp2fiuba.tp0.model.City;
+import com.ar.tdp2fiuba.tp0.service.CitiesService;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link com.ar.tdp2fiuba.tp0.model.City} and makes a call to the
- * specified {@link com.ar.tdp2fiuba.tp0.CitiesFragment.OnCitiesFragmentTapListener}.
+ * specified {@link CitiesFragment.OnCitiesFragmentTapListener}.
  */
 public class CitiesRecyclerViewAdapter extends RecyclerView.Adapter<CitiesRecyclerViewAdapter.ViewHolder> {
 
     private final List<City> mCities;
     private final CitiesFragment.OnCitiesFragmentTapListener mListener;
 
-    public CitiesRecyclerViewAdapter(List<City> items, CitiesFragment.OnCitiesFragmentTapListener listener) {
-        mCities = items;
+    public CitiesRecyclerViewAdapter(CitiesFragment.OnCitiesFragmentTapListener listener) {
         mListener = listener;
+        mCities = new LinkedList<>();
+        retrieveCities();
     }
 
     @Override
@@ -68,5 +79,34 @@ public class CitiesRecyclerViewAdapter extends RecyclerView.Adapter<CitiesRecycl
         public String toString() {
             return super.toString() + " '" + mCityNameView.getText() + "'";
         }
+    }
+
+    // TODO: 17/03/18 Should handle pagination.
+    private void retrieveCities() {
+        final int count = 40;
+        Response.Listener<JSONArray> successListener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        mCities.add(new Gson().fromJson(response.getJSONObject(i).toString(), City.class));
+                        afterCitiesRetrieved();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        };
+        CitiesService.getCities(1, count, successListener, errorListener);
+    }
+
+    private void afterCitiesRetrieved() {
+        this.notifyDataSetChanged();
     }
 }

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ar.tdp2fiuba.tp0.CitiesActivity">
+    tools:context="com.ar.tdp2fiuba.tp0.activity.CitiesActivity">
 
-    <fragment android:name="com.ar.tdp2fiuba.tp0.CitiesFragment"
+    <fragment android:name="com.ar.tdp2fiuba.tp0.fragment.CitiesFragment"
         android:id="@+id/cities_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

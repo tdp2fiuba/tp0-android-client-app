@@ -1,4 +1,4 @@
-package com.ar.tdp2fiuba.tp0;
+package com.ar.tdp2fiuba.tp0.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ar.tdp2fiuba.tp0.adapter.CitiesRecyclerViewAdapter;
+import com.ar.tdp2fiuba.tp0.R;
 import com.ar.tdp2fiuba.tp0.model.City;
-import com.ar.tdp2fiuba.tp0.service.CitiesService;
-
-import java.util.List;
-
 /**
  * A fragment representing a list of Cities.
  * <p/>
@@ -45,7 +43,7 @@ public class CitiesFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new CitiesRecyclerViewAdapter(retrieveCities(), mListener));
+            recyclerView.setAdapter(new CitiesRecyclerViewAdapter(mListener));
         }
         return view;
     }
@@ -58,7 +56,7 @@ public class CitiesFragment extends Fragment {
             mListener = (OnCitiesFragmentTapListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnCitiesFragmentInteractionListener");
+                    + " must implement OnCitiesFragmentTapListener");
         }
     }
 
@@ -66,11 +64,6 @@ public class CitiesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    // TODO: 17/03/18 Should handle pagination.
-    private List<City> retrieveCities() {
-        return CitiesService.getAllCities();
     }
 
     public interface OnCitiesFragmentTapListener {
