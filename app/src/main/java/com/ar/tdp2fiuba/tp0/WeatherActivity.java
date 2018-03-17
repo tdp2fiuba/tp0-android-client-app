@@ -1,5 +1,7 @@
 package com.ar.tdp2fiuba.tp0;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.ar.tdp2fiuba.tp0.R;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -24,8 +28,16 @@ public class WeatherActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                openCitiesActivity();
             }
         });
+    }
+
+    @Deprecated
+    private void openCitiesActivity() {
+        Intent intent = new Intent(this, CitiesActivity.class);
+        startActivity(intent);
     }
 
     @Override
