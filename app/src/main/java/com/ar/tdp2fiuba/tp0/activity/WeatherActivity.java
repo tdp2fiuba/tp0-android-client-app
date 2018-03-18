@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,16 +111,85 @@ public class WeatherActivity extends AppCompatActivity {
             TextView tempDay = (TextView) findViewById(getResources().getIdentifier("day_"+day+"_temp_day", "id", getPackageName()));
             tempDay.setText(String.valueOf(dayWeather.getTempDay()));
 
-            //TODO set icon day
+            //set day weather
+            ImageView weatherDay = (ImageView) findViewById(getResources().getIdentifier("day_"+day+"_ico_day", "id", getPackageName()));
+            weatherDay.setImageResource(getWeatherIconId(dayWeather.weatherDayIcon));
 
             //set temp night
             TextView tempNight = (TextView) findViewById(getResources().getIdentifier("day_"+day+"_temp_night", "id", getPackageName()));
             tempNight.setText(String.valueOf(dayWeather.getTempNight()));
 
-            // TODO set icon night
+            //set day weather
+            ImageView weatherNight = (ImageView) findViewById(getResources().getIdentifier("day_"+day+"_ico_night", "id", getPackageName()));
+            weatherNight.setImageResource(getWeatherIconId(dayWeather.weatherNightIcon));
+
         }
 
         showDaysInfo();
+    }
+
+    private int getWeatherIconId(String iconName) {
+        int id = 0;
+        if (iconName == null) {
+            return id;
+        }
+        switch (iconName) {
+            case "01d":
+                id = R.drawable.icon_01d;
+                break;
+            case "01n":
+                id = R.drawable.icon_01n;
+                break;
+            case "02d":
+                id = R.drawable.icon_02d;
+                break;
+            case "02n":
+                id = R.drawable.icon_02n;
+                break;
+            case "03d":
+                id = R.drawable.icon_03d;
+                break;
+            case "03n":
+                id = R.drawable.icon_03n;
+                break;
+            case "04d":
+                id = R.drawable.icon_04d;
+                break;
+            case "04n":
+                id = R.drawable.icon_04n;
+                break;
+            case "09d":
+                id = R.drawable.icon_09d;
+                break;
+            case "09n":
+                id = R.drawable.icon_09n;
+                break;
+            case "10d":
+                id = R.drawable.icon_10d;
+                break;
+            case "10n":
+                id = R.drawable.icon_10n;
+                break;
+            case "11d":
+                id = R.drawable.icon_11d;
+                break;
+            case "11n":
+                id = R.drawable.icon_11n;
+                break;
+            case "13d":
+                id = R.drawable.icon_13d;
+                break;
+            case "13n":
+                id = R.drawable.icon_13n;
+                break;
+            case "50d":
+                id = R.drawable.icon_50d;
+                break;
+            case "50n":
+                id = R.drawable.icon_50n;
+                break;
+        }
+        return id;
     }
 
     private void findWeatherInfo() {

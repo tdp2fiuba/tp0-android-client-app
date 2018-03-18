@@ -31,18 +31,23 @@ public class InfoWeather {
         this.date = date;
     }
 
+    private String renderTemperature(double temperature) {
+        double roundedTemperature = Math.round(temperature * 10) / 10;
+        return String.valueOf(roundedTemperature) + "ºC";
+    }
+
     public String getTempDay(){
         if (this.tempDay == null){
             return "-";
         }
-        return String.valueOf(this.tempDay);
+        return renderTemperature(this.tempDay);
     }
 
     public String getTempNight(){
         if (this.tempNight == null){
             return "-";
         }
-        return String.valueOf(this.tempNight);
+        return renderTemperature(this.tempNight);
     }
 }
 
