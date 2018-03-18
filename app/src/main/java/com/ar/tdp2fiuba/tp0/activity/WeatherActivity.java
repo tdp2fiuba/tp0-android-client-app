@@ -1,7 +1,9 @@
 package com.ar.tdp2fiuba.tp0.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ar.tdp2fiuba.tp0.R;
+import com.ar.tdp2fiuba.tp0.model.City;
 import com.ar.tdp2fiuba.tp0.model.InfoWeather;
 import com.ar.tdp2fiuba.tp0.service.CitiesService;
 import com.google.gson.Gson;
@@ -29,12 +31,16 @@ public class WeatherActivity extends AppCompatActivity {
 
     private static final int REQ_CODE_CITIES = 1;
 
-    private String cityId = "3435910";  // Default: Buenos Aires
+    private static final String SHP_KEY_CURRENT_CITY = "current_city";
+    private City currentCity;
+
     private List<InfoWeather> daysInfo =  new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadCurrentCityFromPreferences();
+
         setContentView(R.layout.activity_weather);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,11 +87,26 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQ_CODE_CITIES && resultCode == RESULT_OK) {
-            cityId = data.getStringExtra(CitiesActivity.CITY_ID);
+            String serializedCity = data.getStringExtra(CitiesActivity.CITY_SERIALIZED);
+            currentCity = new Gson().fromJson(serializedCity, City.class);
+            saveCurrentCityOnPreferences();
             findWeatherInfo();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void loadCurrentCityFromPreferences() {
+        Gson gson = new Gson();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String defaultSerializedCity = gson.toJson(new City("3435910", "Buenos Aires", "AR"));
+        String currentSerializedCity = sharedPreferences.getString(SHP_KEY_CURRENT_CITY, defaultSerializedCity);
+        this.currentCity = gson.fromJson(currentSerializedCity, City.class);
+    }
+
+    private void saveCurrentCityOnPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.edit().putString(SHP_KEY_CURRENT_CITY, new Gson().toJson(currentCity)).apply();
     }
 
     private void errorOnLoadWeather(){
@@ -150,7 +171,7 @@ public class WeatherActivity extends AppCompatActivity {
                 errorOnLoadWeather();
             }
         };
-        CitiesService.getWeather(cityId, successListener,errorListener);
+        CitiesService.getWeather(currentCity.id, successListener,errorListener);
     }
 
     private void hideDaysInfo(){
