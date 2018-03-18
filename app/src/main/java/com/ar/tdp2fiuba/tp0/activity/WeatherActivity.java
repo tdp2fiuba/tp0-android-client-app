@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ar.tdp2fiuba.tp0.R;
+import com.ar.tdp2fiuba.tp0.model.City;
 import com.ar.tdp2fiuba.tp0.model.InfoWeather;
 import com.ar.tdp2fiuba.tp0.service.CitiesService;
 import com.google.gson.Gson;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private int CITY = 3435910; //Default Buenos Aires
+    private City city = new City("3435910", "Buenos Aires", "0", "0", "AR"); //Default Buenos Aires
     private List<InfoWeather> daysInfo =  new LinkedList<>();
 
     @Override
@@ -36,6 +37,7 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(city.getCityName());
 
         /*
         findViewById(R.id.action_settings).setOnClickListener(new View.OnClickListener() {
@@ -148,7 +150,7 @@ public class WeatherActivity extends AppCompatActivity {
                 errorOnLoadWeather();
             }
         };
-        CitiesService.getWeather(String.valueOf(CITY),successListener,errorListener);
+        CitiesService.getWeather(city.id,successListener,errorListener);
     }
 
     private void hideDaysInfo(){

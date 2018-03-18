@@ -12,7 +12,11 @@ public class City {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-    this.country = country;
+        this.country = country;
+    }
+
+    public String getCityName() {
+        return this.name + ", " + this.country.toUpperCase();
     }
 
     @Override
