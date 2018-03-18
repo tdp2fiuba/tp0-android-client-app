@@ -26,12 +26,12 @@ public class WeatherActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.reload);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCitiesActivity();
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openCitiesActivity();
+//            }
+//        });
 
         findWeatherInfo();
     }
@@ -57,7 +57,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            openCitiesActivity();
         }
 
         return super.onOptionsItemSelected(item);
