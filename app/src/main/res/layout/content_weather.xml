@@ -7,5 +7,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ar.tdp2fiuba.tp0.activity.WeatherActivity"
     tools:showIn="@layout/activity_weather">
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/test"
+        android:src="@drawable/icon_01d"
+        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>

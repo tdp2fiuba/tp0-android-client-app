@@ -1,6 +1,7 @@
 package com.ar.tdp2fiuba.tp0.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ar.tdp2fiuba.tp0.R;
 import com.ar.tdp2fiuba.tp0.service.CitiesService;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
+
+import java.io.File;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -32,7 +39,6 @@ public class WeatherActivity extends AppCompatActivity {
 //                openCitiesActivity();
 //            }
 //        });
-
         findWeatherInfo();
     }
 
