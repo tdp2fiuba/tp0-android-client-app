@@ -6,17 +6,17 @@ public class InfoWeather {
     public final double tempNight;// temperatura promedio durante la noche,
     public final String weatherDayMain;// descripción general del tiempo durante el día,
     public final String weatherDayDesc;// descripción particular del tiempo durante el día,
-    public final int weatherDayIcon;// ícono representativo del tiempo durante el día,
+    public final String weatherDayIcon;// ícono representativo del tiempo durante el día,
     public final String weatherNightMain;// descripción general del tiempo durante la noche,
     public final String weatherNightDesc;// descripción particular del tiempo durante la noche,
-    public final int weatherNightIcon;// ícono representativo del tiempo durante noche,
+    public final String weatherNightIcon;// ícono representativo del tiempo durante noche,
     public final double humidityDay;// porcentaje de humedad durante el día,
     public final double humidityNight;// porcentaje de humedad durante la noche,
     public final String date;// fecha del día
 
     public InfoWeather (double tempDay ,double tempNight, String weatherDayMain, String weatherDayDesc,
-                        int weatherDayIcon, String weatherNightMain, String weatherNightDesc,
-                        int weatherNightIcon, double humidityDay, double humidityNight,
+                        String weatherDayIcon, String weatherNightMain, String weatherNightDesc,
+                        String weatherNightIcon, double humidityDay, double humidityNight,
                         String date){
         this.tempDay = tempDay;
         this.tempNight = tempNight;

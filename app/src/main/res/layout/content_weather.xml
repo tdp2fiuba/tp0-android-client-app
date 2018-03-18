@@ -7,9 +7,263 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ar.tdp2fiuba.tp0.activity.WeatherActivity"
     tools:showIn="@layout/activity_weather">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:id="@+id/test"
-        android:src="@drawable/icon_01d"
-        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/days_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/day_1"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Hoy"
+                android:layout_weight=".4"
+                />
+
+            <TextView
+                android:id="@+id/day_1_temp_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_1_ico_day"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+            <TextView
+                android:id="@+id/day_1_temp_night"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_1_ico_night"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/day_2"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Mañana"
+                android:layout_weight=".4"
+                />
+
+            <TextView
+                android:id="@+id/day_2_temp_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_2_ico_day"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+            <TextView
+                android:id="@+id/day_2_temp_night"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_2_ico_night"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/day_3"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_3_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Dia 3"
+                android:layout_weight=".4"
+                />
+
+            <TextView
+                android:id="@+id/day_3_temp_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_3_ico_day"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+            <TextView
+                android:id="@+id/day_3_temp_night"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_3_ico_night"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/day_4"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_4_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Dia 4"
+                android:layout_weight=".4"
+                />
+
+            <TextView
+                android:id="@+id/day_4_temp_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_4_ico_day"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+            <TextView
+                android:id="@+id/day_4_temp_night"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_4_ico_night"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/day_5"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_5_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Dia 5"
+                android:layout_weight=".4"
+                />
+
+            <TextView
+                android:id="@+id/day_5_temp_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_5_ico_day"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+            <TextView
+                android:id="@+id/day_5_temp_night"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:gravity="center"
+                android:text="TempDay"
+                android:layout_weight="0.2"
+                />
+
+            <ImageView
+                android:id="@+id/day_5_ico_night"
+                android:layout_width="55sp"
+                android:layout_height="@android:dimen/notification_large_icon_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_02d" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

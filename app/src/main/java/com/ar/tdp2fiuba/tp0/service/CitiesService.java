@@ -6,6 +6,7 @@ import com.ar.tdp2fiuba.tp0.model.InfoWeather;
 import com.ar.tdp2fiuba.tp0.service.network.HttpRequestHelper;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 
@@ -31,9 +32,9 @@ public class CitiesService {
         return new City("1", "Nueva York", "28.123", "109.12", "USA");
     }
 
-    public static void getWeather(String cityId,Response.Listener<JSONArray> successListener, Response.ErrorListener errorListener) {
-        final String url = BASE_URL + "/api/forecast?id=" + cityId;
-        HttpRequestHelper.getArray(
+    public static void getWeather(String cityId, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
+        final String url = BASE_URL + "/forecast?id=" + cityId;
+        HttpRequestHelper.get(
                 url,
                 null,
                 successListener,
