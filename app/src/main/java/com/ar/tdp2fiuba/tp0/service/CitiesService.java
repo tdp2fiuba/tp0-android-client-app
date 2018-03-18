@@ -2,9 +2,12 @@ package com.ar.tdp2fiuba.tp0.service;
 
 import com.android.volley.Response;
 import com.ar.tdp2fiuba.tp0.model.City;
+import com.ar.tdp2fiuba.tp0.model.InfoWeather;
 import com.ar.tdp2fiuba.tp0.service.network.HttpRequestHelper;
 
 import org.json.JSONArray;
+
+import java.lang.reflect.Array;
 
 public class CitiesService {
 
@@ -26,5 +29,16 @@ public class CitiesService {
     public static City getCity(String id) {
         // TODO: 17/03/18 Implement!
         return new City("1", "Nueva York", "28.123", "109.12", "USA");
+    }
+
+    public static void getWeather(String cityId,Response.Listener<JSONArray> successListener, Response.ErrorListener errorListener) {
+        final String url = BASE_URL + "/api/forecast?id=" + cityId;
+        HttpRequestHelper.getArray(
+                url,
+                null,
+                successListener,
+                errorListener,
+                "GetCityWeather"
+        );
     }
 }

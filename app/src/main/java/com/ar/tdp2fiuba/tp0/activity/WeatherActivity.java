@@ -8,10 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ar.tdp2fiuba.tp0.R;
+import com.ar.tdp2fiuba.tp0.service.CitiesService;
+import org.json.JSONArray;
 
 public class WeatherActivity extends AppCompatActivity {
+
+    private int CITY = 1; //Default Buenos Aires
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +25,15 @@ public class WeatherActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.reload);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCitiesActivity();
             }
         });
+
+        findWeatherInfo();
     }
 
     private void openCitiesActivity() {
@@ -54,5 +61,21 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void findWeatherInfo() {
+        Response.Listener<JSONArray> successListener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                //TODO
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        };
+        CitiesService.getWeather(String.valueOf(CITY),successListener,errorListener);
     }
 }

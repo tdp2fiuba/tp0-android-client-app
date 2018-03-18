@@ -12,7 +12,7 @@ public class City {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.country = country;
+    this.country = country;
     }
 
     @Override
