@@ -9,9 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ar.tdp2fiuba.tp0.adapter.CitiesRecyclerViewAdapter;
 import com.ar.tdp2fiuba.tp0.R;
+import com.ar.tdp2fiuba.tp0.adapter.PaginationScrollListener;
 import com.ar.tdp2fiuba.tp0.model.City;
+import com.ar.tdp2fiuba.tp0.service.CitiesService;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * A fragment representing a list of Cities.
  * <p/>
@@ -20,7 +29,16 @@ import com.ar.tdp2fiuba.tp0.model.City;
  */
 public class CitiesFragment extends Fragment {
 
+    public interface OnCitiesFragmentTapListener {
+        void onCitySelected(City city);
+    }
+
     private OnCitiesFragmentTapListener mListener;
+
+    private CitiesRecyclerViewAdapter mAdapter;
+
+    private static int currentPage = 0;
+    private boolean isLoading = true;
 
     public CitiesFragment() {}
 
@@ -38,16 +56,48 @@ public class CitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_city_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new CitiesRecyclerViewAdapter(mListener));
-        }
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.city_list_recycler_view);
+        Context context = view.getContext();
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new CitiesRecyclerViewAdapter(mListener);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                retrieveMoreCities();
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return 740;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return currentPage == getTotalPageCount();
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+
+            @Override
+            protected int getLoadingOffset() {
+                return 20;
+            }
+        });
+        retrieveMoreCities();
+
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        currentPage = 0;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -66,7 +116,47 @@ public class CitiesFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnCitiesFragmentTapListener {
-        void onCitySelected(City city);
+    private void stopLoading() {
+        isLoading = false;
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.city_list_progress_bar).setVisibility(View.GONE);
+        }
     }
+
+    private void startLoading() {
+        isLoading = true;
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.city_list_progress_bar).setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void retrieveMoreCities() {
+        final int count = 100;
+        Response.Listener<JSONArray> successListener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        mAdapter.add(new Gson().fromJson(response.getJSONObject(i).toString(), City.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                currentPage++;
+                stopLoading();
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                stopLoading();
+            }
+        };
+        startLoading();
+        CitiesService.getCities(currentPage + 1, count, successListener, errorListener);
+    }
+
 }

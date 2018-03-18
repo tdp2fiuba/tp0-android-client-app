@@ -32,7 +32,6 @@ public class CitiesRecyclerViewAdapter extends RecyclerView.Adapter<CitiesRecycl
     public CitiesRecyclerViewAdapter(CitiesFragment.OnCitiesFragmentTapListener listener) {
         mListener = listener;
         mCities = new LinkedList<>();
-        retrieveCities();
     }
 
     @Override
@@ -81,32 +80,14 @@ public class CitiesRecyclerViewAdapter extends RecyclerView.Adapter<CitiesRecycl
         }
     }
 
-    // TODO: 17/03/18 Should handle pagination.
-    private void retrieveCities() {
-        final int count = 40;
-        Response.Listener<JSONArray> successListener = new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        mCities.add(new Gson().fromJson(response.getJSONObject(i).toString(), City.class));
-                        afterCitiesRetrieved();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        };
-        CitiesService.getCities(1, count, successListener, errorListener);
+    public void add(City city) {
+        mCities.add(city);
+        notifyItemInserted(mCities.size() - 1);
     }
 
-    private void afterCitiesRetrieved() {
-        this.notifyDataSetChanged();
+    public void addAll(List<City> cities) {
+        for (City city : cities) {
+            add(city);
+        }
     }
 }
