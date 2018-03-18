@@ -27,7 +27,9 @@ import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private int CITY = 3435910; //Default Buenos Aires
+    private static final int REQ_CODE_CITIES = 1;
+
+    private String cityId = "3435910";  // Default: Buenos Aires
     private List<InfoWeather> daysInfo =  new LinkedList<>();
 
     @Override
@@ -37,31 +39,21 @@ public class WeatherActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        findViewById(R.id.action_settings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCitiesActivity();
-            }
-        });
-        */
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.reload);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //openCitiesActivity();
                 findWeatherInfo();
             }
         });
 
         findWeatherInfo();
-        showDaysInfo();//daysLayout.setVisibility(View.GONE);
+        showDaysInfo();
     }
 
     private void openCitiesActivity() {
         Intent intent = new Intent(this, CitiesActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQ_CODE_CITIES);
     }
 
     @Override
@@ -84,6 +76,16 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_CODE_CITIES && resultCode == RESULT_OK) {
+            cityId = data.getStringExtra(CitiesActivity.CITY_ID);
+            findWeatherInfo();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void errorOnLoadWeather(){
@@ -148,7 +150,7 @@ public class WeatherActivity extends AppCompatActivity {
                 errorOnLoadWeather();
             }
         };
-        CitiesService.getWeather(String.valueOf(CITY),successListener,errorListener);
+        CitiesService.getWeather(cityId, successListener,errorListener);
     }
 
     private void hideDaysInfo(){

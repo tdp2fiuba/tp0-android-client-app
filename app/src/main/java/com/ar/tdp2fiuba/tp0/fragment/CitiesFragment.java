@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -75,7 +76,7 @@ public class CitiesFragment extends Fragment {
 
             @Override
             public boolean isLastPage() {
-                return currentPage == getTotalPageCount();
+                return currentPage >= getTotalPageCount();
             }
 
             @Override
@@ -153,6 +154,7 @@ public class CitiesFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 stopLoading();
+                Toast.makeText(getActivity(), "No se pudieron obtener más ciudades. Por favor, chequeá tu conexión.", Toast.LENGTH_SHORT).show();
             }
         };
         startLoading();
