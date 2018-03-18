@@ -90,12 +90,4 @@ public class CitiesRecyclerViewAdapter extends RecyclerView.Adapter<CitiesRecycl
             add(city);
         }
     }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
-    }
-
-    public City getItem(int position) {
-        return mCities.get(position);
-    }
 }

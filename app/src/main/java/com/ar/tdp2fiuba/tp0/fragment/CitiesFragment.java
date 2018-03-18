@@ -38,7 +38,7 @@ public class CitiesFragment extends Fragment {
     private CitiesRecyclerViewAdapter mAdapter;
 
     private static int currentPage = 0;
-    private boolean isLoading = false;
+    private boolean isLoading = true;
 
     public CitiesFragment() {}
 
@@ -116,17 +116,19 @@ public class CitiesFragment extends Fragment {
         mListener = null;
     }
 
-    private void setLoading() {
+    private void stopLoading() {
+        isLoading = false;
         View view = getView();
         if (view != null) {
-            if (!isLoading) {
-                view.findViewById(R.id.city_list_progress_bar).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.city_list_recycler_view).setVisibility(View.GONE);
-            } else {
-                view.findViewById(R.id.city_list_progress_bar).setVisibility(View.GONE);
-                view.findViewById(R.id.city_list_recycler_view).setVisibility(View.VISIBLE);
-            }
-            isLoading = !isLoading;
+            view.findViewById(R.id.city_list_progress_bar).setVisibility(View.GONE);
+        }
+    }
+
+    private void startLoading() {
+        isLoading = true;
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.city_list_progress_bar).setVisibility(View.VISIBLE);
         }
     }
 
@@ -143,17 +145,17 @@ public class CitiesFragment extends Fragment {
                     }
                 }
                 currentPage++;
-                //setLoading();
+                stopLoading();
             }
         };
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                //setLoading();
+                stopLoading();
             }
         };
-        //setLoading();
+        startLoading();
         CitiesService.getCities(currentPage + 1, count, successListener, errorListener);
     }
 
