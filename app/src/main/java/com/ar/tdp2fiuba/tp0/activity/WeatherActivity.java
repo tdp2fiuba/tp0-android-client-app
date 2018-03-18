@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -95,8 +96,28 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void loadInfo(){
+        for (int i = 0; i < daysInfo.size() && i < 5; i++) {
+            String day = String.valueOf(i + 1);
+            InfoWeather dayWeather = daysInfo.get(i);
+
+            //set name day
+            TextView nameDay = (TextView) findViewById(getResources().getIdentifier("day_"+day+"_text", "id", getPackageName()));
+            nameDay.setText(dayWeather.date);
+
+            //set temp day
+            TextView tempDay = (TextView) findViewById(getResources().getIdentifier("day_"+day+"_temp_day", "id", getPackageName()));
+            tempDay.setText(String.valueOf(dayWeather.getTempDay()));
+
+            //TODO set icon day
+
+            //set temp night
+            TextView tempNight = (TextView) findViewById(getResources().getIdentifier("day_"+day+"_temp_night", "id", getPackageName()));
+            tempNight.setText(String.valueOf(dayWeather.getTempNight()));
+
+            // TODO set icon night
+        }
+
         showDaysInfo();
-        //Todo
     }
 
     private void findWeatherInfo() {
