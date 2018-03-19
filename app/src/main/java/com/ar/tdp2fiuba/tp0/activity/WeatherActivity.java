@@ -121,10 +121,10 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void errorOnLoadWeather(){
+        stopLoading();
         if (daysInfo.isEmpty()){
             hideDaysInfo();
         }
-        stopLoading();
         Toast.makeText(getApplicationContext(), "Error al cargar la información.",Toast.LENGTH_LONG).show();
     }
 
