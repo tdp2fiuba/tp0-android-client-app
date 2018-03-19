@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -115,8 +116,7 @@ public class WeatherActivity extends AppCompatActivity {
             hideDaysInfo();
         }
 
-        //TODO toast error message
-        //Toast.makeText(getActivity(), "Error al cargar la información.",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Error al cargar la información.",Toast.LENGTH_LONG).show();
     }
 
     private void loadInfo(){
