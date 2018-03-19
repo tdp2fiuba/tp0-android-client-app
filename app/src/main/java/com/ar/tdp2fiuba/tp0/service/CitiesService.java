@@ -1,14 +1,10 @@
 package com.ar.tdp2fiuba.tp0.service;
 
 import com.android.volley.Response;
-import com.ar.tdp2fiuba.tp0.model.City;
-import com.ar.tdp2fiuba.tp0.model.InfoWeather;
 import com.ar.tdp2fiuba.tp0.service.network.HttpRequestHelper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 
 public class CitiesService {
 
@@ -25,11 +21,6 @@ public class CitiesService {
                 errorListener,
                 "GetCities"
         );
-    }
-
-    public static City getCity(String id) {
-        // TODO: 17/03/18 Implement!
-        return new City("1", "Nueva York", "28.123", "109.12", "USA");
     }
 
     public static void getWeather(String cityId, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
