@@ -52,6 +52,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findWeatherInfo();
+                Toast.makeText(getApplicationContext(), "Actualizado!",Toast.LENGTH_LONG).show();
             }
         });
 
