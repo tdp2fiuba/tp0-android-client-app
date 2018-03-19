@@ -125,7 +125,7 @@ public class WeatherActivity extends AppCompatActivity {
         if (daysInfo.isEmpty()){
             hideDaysInfo();
         }
-        Toast.makeText(getApplicationContext(), "Error al cargar la información.",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "No fue posible conectarse al servidor, por favor reintente más tarde", Toast.LENGTH_LONG).show();
     }
 
     private void loadInfo() {
