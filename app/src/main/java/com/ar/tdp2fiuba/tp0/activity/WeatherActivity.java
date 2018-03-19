@@ -56,7 +56,6 @@ public class WeatherActivity extends AppCompatActivity {
         });
 
         findWeatherInfo();
-        showDaysInfo();
     }
 
     private void openCitiesActivity() {
@@ -111,15 +110,26 @@ public class WeatherActivity extends AppCompatActivity {
         sharedPreferences.edit().putString(SHP_KEY_CURRENT_CITY, new Gson().toJson(currentCity)).apply();
     }
 
+    private void startLoading() {
+        hideDaysInfo();
+        findViewById(R.id.activity_weather_progress_bar).setVisibility(View.VISIBLE);
+    }
+
+    private void stopLoading() {
+        showDaysInfo();
+        findViewById(R.id.activity_weather_progress_bar).setVisibility(View.GONE);
+    }
+
     private void errorOnLoadWeather(){
         if (daysInfo.isEmpty()){
             hideDaysInfo();
         }
-
+        stopLoading();
         Toast.makeText(getApplicationContext(), "Error al cargar la información.",Toast.LENGTH_LONG).show();
     }
 
-    private void loadInfo(){
+    private void loadInfo() {
+        getSupportActionBar().setTitle(currentCity.getCityName());
         for (int i = 0; i < daysInfo.size() && i < 5; i++) {
             String day = String.valueOf(i + 1);
             InfoWeather dayWeather = daysInfo.get(i);
@@ -145,8 +155,7 @@ public class WeatherActivity extends AppCompatActivity {
             weatherNight.setImageResource(getWeatherIconId(dayWeather.weatherNightIcon));
 
         }
-
-        showDaysInfo();
+        stopLoading();
     }
 
     private int getWeatherIconId(String iconName) {
@@ -224,6 +233,7 @@ public class WeatherActivity extends AppCompatActivity {
                     errorOnLoadWeather();
                     return;
                 }
+                daysInfo.clear();
                 for (int i = 0; i < days.length(); i++) {
                     try {
                         daysInfo.add(new Gson().fromJson(days.getJSONObject(i).toString(), InfoWeather.class));
@@ -241,6 +251,7 @@ public class WeatherActivity extends AppCompatActivity {
                 errorOnLoadWeather();
             }
         };
+        startLoading();
         CitiesService.getWeather(currentCity.id, successListener,errorListener);
     }
 
